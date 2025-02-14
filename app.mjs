@@ -3,7 +3,7 @@ console.log("helllo")
 // console.log(a)
 import  express from "express"
 const app = express()
-const port =  process.env.PORT || 5000
+const port =  5000
 //192.168.228.12:5000
 
 app.get('/', (req, res) => {
