@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <form onsubmit="getWeather(); return false" >
+        <label for="city"> Enter your cityName
+            <input type="text" id="city" >
+            <br><br>
+            <button type="submit">Get Weather</button>
+        </label>
+    </form>
+    <div id="result">
+
+    </div>
+    <script type="module">
+        window.getWeather = function(){
+            let city = document.getElementById("city").value
+
+            fetch(`http://192.168.228.12:5000/weather`)
+            .then(response => response.json())
+            .then(data =>{
+                
+                console.log(data)
+                let res = document.getElementById("result")
+                res.innerHTML = `
+                <h2>${data.city}</h2>
+                <h2> Tempreture : ${data.tempInC}</h2>
+                <h2> Humidity : ${data.humidity}</h2>
+                <h2> High : ${data.high}</h2>
+                <h2> Low : ${data.low}</h2>
+
+
+
+                
+                
+                
+                `
+            })
+
+
+        }
+
+
+    </script>
+</body>
+</html>
