@@ -1,56 +1,3 @@
-// console.log("helllo")
-// // let a = prompt("enter your name")
-// // console.log(a)
-// import  express from "express"
-// import cors from "cors"
-// const app = express()
-// app.use(cors())
-// const port =  5000
-
-// app.get('/', (req, res) => {
-
-//     console.log("Requisting ip" , req.ip)
-//   res.send('my name is Alina Arif, this is my server')
-// })
-
-
-// app.get('/weather', (req, res) => {
-
-//   console.log("weather app" )
-
-// // const cities =[ {
-// //   city:"Karachi",
-// //   tempInC:26,
-// //   humidity:10,
-// //   high:32,
-// //   low:23
-// // },
-// // {
-// //   city:"lahore",
-// //   tempInC:21,
-// //   humidity:10,
-// //   high:32,
-// //   low:23
-// // }
-// // ]
-
-
-// res.send({
-//   city:"Karachi",
-//   tempInC:26,
-//   humidity:10,
-//   high:32,
-//   low:23
-
-
-
-
-// })
-// })
-
-// app.listen(port, () => {
-//   console.log(`Example app listening on port ${port}`)
-// })
 
 
 import express from "express";
@@ -59,14 +6,15 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 
-const port = 5000;
+const port = 8000;
+//192.168.2.11:5000
 
 app.get('/', (req, res) => {
   console.log("Requesting IP", req.ip);
   res.send('My name is Alina Arif, this is my server');
 });
 
-app.get('/weather/:cityName', (req, res) => {
+app.get('/weather/:city', (req, res) => {
   console.log("Weather app");
 
   const cities = {
@@ -99,13 +47,14 @@ app.get('/weather/:cityName', (req, res) => {
       low: 24
     }
   };
-  let userInputCity = req.params.cityName.toLowerCase()
+  let userInputCity = req.params.city.toLowerCase()
   let dataSend = cities[userInputCity]
+
 
   if(dataSend){
     res.send(dataSend);
   }else{
-    res.status(404).send(`Data for ${userInputCity} not found`)
+    res.status(404).send(`Data for ${req.params.city} not found`)
   }
 
  
@@ -114,3 +63,5 @@ app.get('/weather/:cityName', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+

@@ -17,10 +17,11 @@
 
     </div>
     <script type="module">
+        console.log("hello")
         window.getWeather = function(){
             let city = document.getElementById("city").value
 
-            fetch(`http://192.168.228.12:5000/weather`)
+            fetch(`192.168.2.11:8000/weather/${city}`)
             .then(response => response.json())
             .then(data =>{
                 
@@ -41,6 +42,19 @@
                 `
             })
 
+            .catch(error=>{
+                console.log('Error :', error)
+                let res = document.getElementById("result")
+                res.innerHTML = `<h2>Error</h2>
+                <p>city ${city} not found </p>
+                
+                
+                
+                `
+
+
+            })
+
 
         }
 
@@ -48,3 +62,6 @@
     </script>
 </body>
 </html>
+
+
+
