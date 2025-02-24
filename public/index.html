@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,7 +21,7 @@
         window.getWeather = function(){
             let city = document.getElementById("city").value
 
-            fetch(`192.168.2.11:8000/weather/${city}`)
+            fetch(`192.168.2.11:5000/weather/${city}`)
             .then(response => response.json())
             .then(data =>{
                 
@@ -64,4 +64,60 @@
 </html>
 
 
+ -->
 
+
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+<body>
+    <form onsubmit="getWeather(); return false">
+        <label for="city">Enter your city name:
+            <input type="text" id="city">
+        </label>
+        <br><br>
+        <button type="submit">Get Weather</button>
+    </form>
+    <div id="result"></div>
+
+    <script type="module">
+        console.log("hello")
+        window.getWeather = function() {
+            let city = document.getElementById("city").value.trim();
+            let url = `http://192.168.2.11:5000/weather/${city}`; // Added protocol
+
+            console.log("Fetching data from:", url);
+
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+
+                let res = document.getElementById("result");
+                res.innerHTML = `
+                    <h2>${data.city}</h2>
+                    <h2>Temperature: ${data.tempInC}°C</h2>
+                    <h2>Humidity: ${data.humidity}%</h2>
+                    <h2>High: ${data.high}°C</h2>
+                    <h2>Low: ${data.low}°C</h2>
+                `;
+            })
+            .catch(error => {
+                console.log('Error:', error);
+
+                let res = document.getElementById("result");
+                res.innerHTML = `
+                    <h2>Error</h2>
+                    <p>City "${city}" not found.</p>
+                `;
+            });
+        };
+    </script>
+</body>
+</html>
